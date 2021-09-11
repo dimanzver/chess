@@ -1,4 +1,4 @@
-package com.example.demo.responses;
+package com.example.demo.modules.common.responses;
 
 import com.example.demo.models.User;
 
