@@ -2,12 +2,17 @@ package com.example.demo.modules.chessLogic.figures;
 
 import com.example.demo.dto.Cell;
 import com.example.demo.dto.MoveDto;
+import com.example.demo.enums.Side;
 import com.example.demo.modules.chessLogic.Board;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Queen extends Figure {
+    public Queen(Side side) {
+        super(side);
+    }
+
     @Override
     public List<MoveDto> getAvailableMovesOnBoard(Board board) {
         List<MoveDto> moves = new ArrayList<>();
@@ -44,4 +49,5 @@ public class Queen extends Figure {
 
         return moves;
     }
+
 }

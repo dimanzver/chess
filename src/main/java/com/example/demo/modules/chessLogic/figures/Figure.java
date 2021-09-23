@@ -12,6 +12,12 @@ public abstract class Figure {
     private Side side;
     private Cell cell;
 
+
+    public Figure(){}
+    public Figure(Side side) {
+        this.side = side;
+    }
+
     public abstract List<MoveDto> getAvailableMovesOnBoard(Board board);
 
     public boolean mayEat(Figure figure) {
