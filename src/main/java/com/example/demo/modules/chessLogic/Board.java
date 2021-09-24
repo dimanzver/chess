@@ -3,19 +3,20 @@ package com.example.demo.modules.chessLogic;
 import com.example.demo.dto.Cell;
 import com.example.demo.enums.Side;
 import com.example.demo.modules.chessLogic.figures.Figure;
+import com.example.demo.modules.chessLogic.figures.Pawn;
 
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.Objects;
 
-public class Board {
+public class Board implements Cloneable {
     private Figure[][] figures = new Figure[8][8];
     private Side nextMoveSide = Side.WHITE;
     private boolean whiteShortCastling = true;
     private boolean whiteLongCastling = true;
     private boolean blackShortCastling = true;
     private boolean blackLongCastling = true;
-    private Figure lastPawnTwoMoved;
+    private Pawn lastPawnTwoMoved;
     private int returnableMovesCount = 0;
     private int moveNumber = 1;
 
@@ -24,6 +25,17 @@ public class Board {
     public Figure getFigureOnCell(Cell cell) {
         if(!cell.isOnBoard()) return null;
         return figures[cell.getX()][cell.getY()];
+    }
+
+    public void moveFigureToCell(Figure figure, Cell cellTo) {
+        this.removeFigureOnCell(figure.getCell());
+        figure.setCell(cellTo);
+        figures[cellTo.getX()][cellTo.getY()] = figure;
+    }
+
+    public void removeFigureOnCell(Cell cell) {
+        if(cell.isOnBoard())
+            this.figures[cell.getX()][cell.getY()] = null;
     }
 
     /**
@@ -116,7 +128,7 @@ public class Board {
         Cell lastTwoPawnMoveCell = Cell.fromString(fenParts[3]);
         if(lastTwoPawnMoveCell != null) {
             lastTwoPawnMoveCell.setY(lastTwoPawnMoveCell.getY() == 6 ? 5 : 4);
-            board.setLastPawnTwoMoved(board.getFigureOnCell(lastTwoPawnMoveCell));
+            board.setLastPawnTwoMoved((Pawn) board.getFigureOnCell(lastTwoPawnMoveCell));
         }
 
         return board;
@@ -187,11 +199,20 @@ public class Board {
         this.moveNumber = moveNumber;
     }
 
-    public Figure getLastPawnTwoMoved() {
+    public Pawn getLastPawnTwoMoved() {
         return lastPawnTwoMoved;
     }
 
-    public void setLastPawnTwoMoved(Figure lastPawnTwoMoved) {
+    public void setLastPawnTwoMoved(Pawn lastPawnTwoMoved) {
         this.lastPawnTwoMoved = lastPawnTwoMoved;
+    }
+
+    @Override
+    public Board clone() {
+        try {
+            return (Board) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
     }
 }

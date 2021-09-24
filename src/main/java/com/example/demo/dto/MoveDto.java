@@ -1,5 +1,6 @@
 package com.example.demo.dto;
 
+import com.example.demo.modules.chessLogic.FenChar;
 import com.example.demo.modules.chessLogic.figures.Figure;
 
 public class MoveDto {
@@ -9,6 +10,11 @@ public class MoveDto {
     public MoveDto(Figure figure, Cell cellTo) {
         this.figure = figure;
         this.cellTo = cellTo;
+    }
+
+    @Override
+    public String toString() {
+        return FenChar.getForFigure(this.getFigure()) + this.getCellTo().toString();
     }
 
     public Figure getFigure() {
