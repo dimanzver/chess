@@ -18,6 +18,8 @@
 		<spring-cloud.version>Finchley.SR2</spring-cloud.version>
 	</properties>
 
+	<packaging>jar</packaging>
+
 
 	<dependencies>
 		<dependency>

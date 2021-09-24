@@ -53,7 +53,7 @@ public class Board {
                 }
                 rowFen.append(FenChar.getForFigure(figure));
             }
-            fen.append(y == 0 ? rowFen : "/" + rowFen);
+            fen.append(y == 0 ? rowFen : rowFen + "/");
         }
         fen.append(this.getNextMoveSide() == Side.WHITE ? " w " : " b ");
         if(this.isWhiteShortCastling())
@@ -64,9 +64,16 @@ public class Board {
             fen.append('k');
         if(this.isBlackLongCastling())
             fen.append('q');
-        fen.append(' ')
-            .append(this.getLastPawnTwoMoved() == null ? '-' : this.getLastPawnTwoMoved().getCell())
-            .append(" ").append(getReturnableMovesCount()).append(" ").append(getMoveNumber());
+        fen.append(' ');
+
+        Figure pawnTwoMoved = this.getLastPawnTwoMoved();
+        if(pawnTwoMoved == null) {
+            fen.append('-');
+        }else {
+            int directionToSkipped = pawnTwoMoved.getSide() == Side.WHITE ? -1 : 1;
+            fen.append(this.getLastPawnTwoMoved().getCell().addY(directionToSkipped));
+        }
+        fen.append(" ").append(getReturnableMovesCount()).append(" ").append(getMoveNumber());
 
         return fen.toString();
     }
@@ -91,6 +98,7 @@ public class Board {
                 Figure figure = FenChar.charToFigure(c);
                 figure.setCell(new Cell(x, y));
                 figures[x][y] = figure;
+                x++;
             }
 
             y--;
@@ -102,8 +110,8 @@ public class Board {
         board.setWhiteLongCastling(fenParts[2].contains("Q"));
         board.setBlackShortCastling(fenParts[2].contains("k"));
         board.setBlackLongCastling(fenParts[2].contains("q"));
-        board.setReturnableMovesCount((Integer) NumberFormat.getInstance().parse(fenParts[4]));
-        board.setMoveNumber((Integer) NumberFormat.getInstance().parse(fenParts[5]));
+        board.setReturnableMovesCount(NumberFormat.getInstance().parse(fenParts[4]).intValue());
+        board.setMoveNumber(NumberFormat.getIntegerInstance().parse(fenParts[5]).intValue());
 
         Cell lastTwoPawnMoveCell = Cell.fromString(fenParts[3]);
         if(lastTwoPawnMoveCell != null) {

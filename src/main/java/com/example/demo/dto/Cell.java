@@ -48,6 +48,6 @@ public class Cell {
         if(cellString.length() != 2) return null;
         String columns = "abcdefgh";
         int x = columns.indexOf(cellString.charAt(0));
-        return new Cell(x, Character.getNumericValue(cellString.charAt(1)));
+        return new Cell(x, Character.getNumericValue(cellString.charAt(1)) - 1);
     }
 }
