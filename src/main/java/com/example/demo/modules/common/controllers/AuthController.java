@@ -7,6 +7,7 @@ import com.example.demo.modules.common.requests.RegisterRequestData;
 import com.example.demo.modules.common.responses.UserAuthResponse;
 import com.example.demo.modules.common.validators.RegisterRequestValidator;
 import com.example.demo.services.UserService;
+import com.example.demo.services.WebAuth;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.DataBinder;
@@ -25,10 +26,12 @@ public class AuthController {
 
     private final UserService userService;
     private final RegisterRequestValidator validator;
+    private final WebAuth webAuth;
 
-    public AuthController(UserService userService, RegisterRequestValidator validator) {
+    public AuthController(UserService userService, RegisterRequestValidator validator, WebAuth webAuth) {
         this.userService = userService;
         this.validator = validator;
+        this.webAuth = webAuth;
     }
 
 
@@ -61,7 +64,7 @@ public class AuthController {
 
     @GetMapping("/auth/user")
     public ResponseEntity<?> user() {
-        User user = userService.authenticate("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1aWQiOjZ9.GbHQhIKwnk-NXEMIArk_sqLieD6VSUz0hPIvFSqYtM0");
+        User user = this.webAuth.authenticate();
         if(user == null)
             return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
         return new ResponseEntity<>(user, HttpStatus.OK);
