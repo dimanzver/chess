@@ -6,8 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
@@ -26,8 +24,4 @@ public class ChessApplication {
 	@Autowired
 	private UserRepository userRepository;
 
-	@GetMapping(path = "/")
-	public @ResponseBody Iterable<User> hello() {
-		return userRepository.findAll();
-	}
 }

@@ -10,8 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-
 @Service
 public class UserService {
 
@@ -41,5 +39,11 @@ public class UserService {
             response.setToken(jwtService.generateUserToken(user.getId()));
         }
         return response;
+    }
+
+    public User authenticate(String token) {
+        Integer userId = this.jwtService.getUserId(token);
+        if(userId == null) return null;
+        return this.userRepository.findById(userId).get();
     }
 }

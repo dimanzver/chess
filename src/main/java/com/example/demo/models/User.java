@@ -1,5 +1,7 @@
 package com.example.demo.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -12,6 +14,8 @@ public class User {
 
     private String name;
     private String email;
+
+    @JsonIgnore
     private String password;
 
 

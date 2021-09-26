@@ -7,25 +7,23 @@ import com.example.demo.modules.common.requests.RegisterRequestData;
 import com.example.demo.modules.common.responses.UserAuthResponse;
 import com.example.demo.modules.common.validators.RegisterRequestValidator;
 import com.example.demo.services.UserService;
-import com.google.gson.Gson;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.DataBinder;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 @RestController
 public class AuthController {
 
     private final UserService userService;
-
     private final RegisterRequestValidator validator;
 
     public AuthController(UserService userService, RegisterRequestValidator validator) {
@@ -34,7 +32,7 @@ public class AuthController {
     }
 
 
-    @PostMapping("/register")
+    @PostMapping("/auth/register")
     public ResponseEntity<?> register(@RequestBody RegisterRequestData requestData){
         DataBinder dataBinder = new DataBinder(requestData);
         dataBinder.addValidators(validator);
@@ -52,13 +50,21 @@ public class AuthController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @PostMapping("/login")
+    @PostMapping("/auth/login")
     public UserAuthResponse login(@RequestBody LoginRequestData requestData, HttpServletResponse response) {
         UserAuthResponse userResponse = userService.login(requestData);
         if(userResponse.getUser() == null) {
             response.setStatus(401);
         }
         return userResponse;
+    }
+
+    @GetMapping("/auth/user")
+    public ResponseEntity<?> user() {
+        User user = userService.authenticate("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1aWQiOjZ9.GbHQhIKwnk-NXEMIArk_sqLieD6VSUz0hPIvFSqYtM0");
+        if(user == null)
+            return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
 }
