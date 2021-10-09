@@ -13,6 +13,8 @@ public class ClientResolver {
         switch (name){
             case "google":
                 return context.getBean("google", GoogleOAuth.class);
+            case "vk":
+                return context.getBean("vk", VkOauth.class);
         }
         throw new IllegalArgumentException("Oauth client not found");
     }
