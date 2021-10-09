@@ -20,9 +20,13 @@ public class UserService {
     private JWTService jwtService;
 
     public User register(RegisterRequestData data) {
+        return register(data.getName(), data.getEmail());
+    }
+
+    public User register(String name, String email) {
         User user = new User();
-        user.setName(data.getName());
-        user.setEmail(data.getEmail());
+        user.setName(name);
+        user.setEmail(email);
         String password = RandomString.make(10);
         System.out.println(password);
         user.setPassword((new BCryptPasswordEncoder()).encode(password));
