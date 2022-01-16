@@ -1,4 +1,4 @@
-package com.example.demo.services;
+package com.example.demo.modules.common.services;
 
 import com.example.demo.models.User;
 import com.example.demo.modules.common.requests.LoginRequestData;
@@ -9,6 +9,8 @@ import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -48,6 +50,7 @@ public class UserService {
     public User authenticate(String token) {
         Integer userId = this.jwtService.getUserId(token);
         if(userId == null) return null;
-        return this.userRepository.findById(userId).get();
+        Optional<User> user = this.userRepository.findById(userId);
+        return user.orElse(null);
     }
 }

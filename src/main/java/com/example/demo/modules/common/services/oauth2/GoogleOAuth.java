@@ -1,4 +1,4 @@
-package com.example.demo.services.oauth2;
+package com.example.demo.modules.common.services.oauth2;
 
 import com.example.demo.dto.OAuthDto;
 import com.google.api.client.auth.oauth2.AuthorizationCodeFlow;
@@ -27,9 +27,7 @@ public class GoogleOAuth extends AbstractOAuthClient {
                     .newAuthorizationUrl()
                     .setRedirectUri(getCallbackUrl())
                     .toString();
-        } catch (ServletException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (ServletException | IOException e) {
             e.printStackTrace();
         }
         return null;
@@ -97,7 +95,7 @@ public class GoogleOAuth extends AbstractOAuthClient {
         }
 
         @Override
-        protected String getUserId(HttpServletRequest httpServletRequest) throws ServletException, IOException {
+        protected String getUserId(HttpServletRequest httpServletRequest) {
             return null;
         }
     }

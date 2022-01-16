@@ -1,4 +1,4 @@
-package com.example.demo.services.oauth2;
+package com.example.demo.modules.common.services.oauth2;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;

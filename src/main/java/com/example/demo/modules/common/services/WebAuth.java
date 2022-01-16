@@ -1,4 +1,4 @@
-package com.example.demo.services;
+package com.example.demo.modules.common.services;
 
 import com.example.demo.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @Service
 public class WebAuth {
-    private UserService userService;
+    private final UserService userService;
 
     @Autowired
     private HttpServletRequest request;
