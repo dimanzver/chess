@@ -1,5 +1,6 @@
 package com.example.demo.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Setter;
@@ -17,5 +18,6 @@ public class GameOffer {
     int id;
 
     @Column(name = "date_time", columnDefinition = "TIMESTAMP")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'+03:00'")
     LocalDateTime dateTime;
 }
