@@ -3,6 +3,7 @@ package com.example.demo.modules.common.services;
 import com.example.demo.models.User;
 import com.example.demo.modules.common.requests.LoginRequestData;
 import com.example.demo.modules.common.requests.RegisterRequestData;
+import com.example.demo.modules.common.services.Auth.JWTService;
 import com.example.demo.repositories.UserRepository;
 import com.example.demo.modules.common.responses.UserAuthResponse;
 import net.bytebuddy.utility.RandomString;

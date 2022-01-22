@@ -1,6 +1,7 @@
-package com.example.demo.modules.common.services;
+package com.example.demo.modules.common.services.Auth;
 
 import com.example.demo.models.User;
+import com.example.demo.modules.common.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

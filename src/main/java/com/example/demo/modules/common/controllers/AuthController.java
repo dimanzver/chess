@@ -7,7 +7,7 @@ import com.example.demo.modules.common.requests.RegisterRequestData;
 import com.example.demo.modules.common.responses.UserAuthResponse;
 import com.example.demo.modules.common.validators.RegisterRequestValidator;
 import com.example.demo.modules.common.services.UserService;
-import com.example.demo.modules.common.services.WebAuth;
+import com.example.demo.modules.common.services.Auth.WebAuth;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.DataBinder;

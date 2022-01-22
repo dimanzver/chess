@@ -1,4 +1,4 @@
-package com.example.demo.modules.common.services.oauth2;
+package com.example.demo.modules.common.services.Auth.Oauth2;
 
 import com.example.demo.dto.OAuthDto;
 import com.vk.api.sdk.client.VkApiClient;
