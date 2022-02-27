@@ -46,6 +46,7 @@ public class GameOfferServiceImpl implements GameOfferService {
         secondPlayer.setTimeRemains(gameOffer.getGameTime());
 
         game.setPlayers(Arrays.asList(firstPlayer, secondPlayer));
+        gameOfferRepository.delete(gameOffer);
 
         return gameRepository.save(game);
     }
